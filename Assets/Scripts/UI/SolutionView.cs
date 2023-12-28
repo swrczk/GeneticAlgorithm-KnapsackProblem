@@ -45,14 +45,14 @@ namespace UI
             SelectSolution(_currentSolutionIndex);
         }
 
-        private void SelectSolution(int i)
+        private void SelectSolution(int index)
         {
             allItemsButton.image.color = allItemsButton.colors.normalColor;
-            _currentSolutionIndex = i;
-            for (int j = 0; j < solutionButtons.Count; j++)
+            _currentSolutionIndex = index;
+            for (int i = 0; i < solutionButtons.Count; i++)
             {
-                solutionButtons[j].image.color =
-                    i == j ? solutionButtons[j].colors.selectedColor : solutionButtons[j].colors.normalColor;
+                solutionButtons[i].image.color =
+                    index == i ? solutionButtons[i].colors.selectedColor : solutionButtons[i].colors.normalColor;
             }
 
             ShowSolution();
@@ -88,9 +88,9 @@ namespace UI
         {
             tryAgainButton.onClick.RemoveListener(OnTryAgainButtonClicked);
             allItemsButton.onClick.RemoveListener(ShowAllItems);
-            for (int i = 0; i < solutionButtons.Count; i++)
+            foreach (var button in solutionButtons)
             {
-                solutionButtons[i].onClick.RemoveAllListeners();
+                button.onClick.RemoveAllListeners();
             }
         }
     }
