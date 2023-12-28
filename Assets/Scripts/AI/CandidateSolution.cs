@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace GeneticAlgorithm
+namespace AI
 {
     public class CandidateSolution
     {
@@ -10,6 +10,19 @@ namespace GeneticAlgorithm
         public float TotalPrice { get; set; }
         public float TotalWeight { get; set; }
 
+        public List<Item> GetItems()
+        {
+            List<Item> items = new List<Item>();
+            for (int i = 0; i < Genes.Count; i++)
+            {
+                if (Genes[i])
+                {
+                    items.Add(AlgorithmSettings.Items[i]);
+                }
+            }
+
+            return items;
+        }
 
         public static CandidateSolution Initialize()
         {
@@ -41,14 +54,8 @@ namespace GeneticAlgorithm
         {
             TotalWeight = CalculateWeight();
             TotalPrice = CalculatePrice();
-            if (TotalWeight > AlgorithmSettings.WeightLimit)
-            {
-                Fitness = 0;
-            }
-            else
-            {
-                Fitness = TotalPrice;
-            }
+            var overweight = Mathf.Min(0, TotalWeight - AlgorithmSettings.WeightLimit);
+            Fitness = TotalPrice - AlgorithmSettings.WeightPenalty * overweight;
         }
 
         private float CalculateWeight()

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
-namespace GeneticAlgorithm
+namespace AI
 {
     public class Population
     {
@@ -11,21 +10,22 @@ namespace GeneticAlgorithm
         {
             Solutions.ForEach(solution => solution.Mutate());
         }
-    
+
         public void SortByFitness()
         {
             Solutions.Sort((a, b) => b.Fitness.CompareTo(a.Fitness));
         }
-    
+
         public Population CreateNextGeneration()
         {
             Population nextGeneration = new Population();
-            for(int i=0; i<Solutions.Count; i++)
+            for (int i = 0; i < Solutions.Count; i++)
             {
                 CandidateSolution solution = new CandidateSolution();
                 solution.Genes = Solutions[i].Genes;
                 nextGeneration.Solutions.Add(solution);
             }
+
             nextGeneration.Mutate();
             nextGeneration.SortByFitness();
             return nextGeneration;
