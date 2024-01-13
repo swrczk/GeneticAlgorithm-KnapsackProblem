@@ -4,7 +4,7 @@ namespace AI
 {
     public class Population
     {
-        public List<CandidateSolution> Solutions { get; set; } = new List<CandidateSolution>();
+        public List<CandidateSolution> Solutions { get; private set; } = new List<CandidateSolution>();
 
         public void Mutate()
         {
@@ -14,21 +14,6 @@ namespace AI
         public void SortByFitness()
         {
             Solutions.Sort((a, b) => b.Fitness.CompareTo(a.Fitness));
-        }
-
-        public Population CreateNextGeneration()
-        {
-            Population nextGeneration = new Population();
-            for (int i = 0; i < Solutions.Count; i++)
-            {
-                CandidateSolution solution = new CandidateSolution();
-                solution.Genes = Solutions[i].Genes;
-                nextGeneration.Solutions.Add(solution);
-            }
-
-            nextGeneration.Mutate();
-            nextGeneration.SortByFitness();
-            return nextGeneration;
         }
 
         public static Population Initialize()

@@ -6,23 +6,9 @@ namespace AI
     public class CandidateSolution
     {
         public float Fitness { get; private set; }
-        public List<bool> Genes { get; set; }
-        public float TotalPrice { get; set; }
-        public float TotalWeight { get; set; }
-
-        public List<Item> GetItems()
-        {
-            List<Item> items = new List<Item>();
-            for (int i = 0; i < Genes.Count; i++)
-            {
-                if (Genes[i])
-                {
-                    items.Add(AlgorithmSettings.Items[i]);
-                }
-            }
-
-            return items;
-        }
+        public List<bool> Genes { get; private set; }
+        public float TotalPrice { get; private set; }
+        public float TotalWeight { get; private set; }
 
         public static CandidateSolution Initialize()
         {
